@@ -2,7 +2,10 @@
 
 This is my version of popular game Minesweeper. It has GUI and requires Tcl/Tk installed on your system
 as well as tkinter module in your Python library (included by default in standard package for Windows).
-In Linux you may need {{{sudo apt-get install python3-tk}}}.
+In Linux you may need
+```
+sudo apt-get install python3-tk
+```
 
 It is the second version of the program because it has GUI while the first one was completely textual.
 
