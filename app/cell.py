@@ -26,6 +26,7 @@ class Cell(tk.Button):
     # Image control
     def _get_opened_image(self):
         return self._opened_image
+
     def _set_opened_image(self, opened_image):
         del self._opened_image
         self._opened_image = opened_image
@@ -88,6 +89,12 @@ class Cell(tk.Button):
                 counter.set(counter.get()+1)
             if self.field.number_of_bombs.get() == 0:
                 self.field.check()
+
+    def show(self, not_place_of_death):
+        if self.is_bomb() and not self.is_marked() and not_place_of_death:
+            self.configure(image=self._bomb_image)
+        elif not self.is_bomb() and self.is_marked():
+            self.configure(image=self._not_bomb_image)
 
     # Other actions
     def automated_opening(self, event=None):

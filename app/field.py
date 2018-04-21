@@ -84,8 +84,4 @@ class Field(tk.Frame):
 
     def show_the_bombs(self):
         for name in self.cells:
-            cell = self.cells[name]
-            if cell.is_bomb() and not cell.is_marked() and name != self.place_of_death:
-                cell.configure(image=cell.bomb_image)
-            elif not cell.is_bomb() and cell.is_marked():
-                cell.configure(image=cell.not_bomb_image)
+            self.cells[name].show(name != self.place_of_death)

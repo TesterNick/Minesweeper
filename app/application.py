@@ -1,4 +1,3 @@
-import gc
 import tkinter as tk
 from .simple_dialog import SimpleDialog
 from .field import Field
