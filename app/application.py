@@ -58,5 +58,4 @@ class Application(tk.Frame):
     def restart(self, event=None):
         for child in self.parent.winfo_children():
             child.destroy()
-        gc.collect()
         self.__init__(self.parent, self.settings)
