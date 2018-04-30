@@ -37,6 +37,8 @@ class SimpleDialog(DialogWindow):
                 self.no_button.focus_force()
             self.bind("<Right>", self.no_button_focus)
             self.bind("<Left>", self.yes_button_focus)
+        self.position()
+        self.deiconify()
 
     def no_button_focus(self, event=None):
         self.no_button.focus_set()
