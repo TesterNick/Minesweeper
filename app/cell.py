@@ -90,8 +90,8 @@ class Cell(tk.Button):
             if self.field.number_of_bombs.get() == 0:
                 self.field.check()
 
-    def show(self, not_place_of_death):
-        if self.is_bomb() and not self.is_marked() and not_place_of_death:
+    def show(self, place_of_death):
+        if self.is_bomb() and not self.is_marked() and not place_of_death:
             self.configure(image=self._bomb_image)
         elif not self.is_bomb() and self.is_marked():
             self.configure(image=self._not_bomb_image)

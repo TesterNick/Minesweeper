@@ -84,4 +84,4 @@ class Field(tk.Frame):
 
     def show_the_bombs(self):
         for name in self.cells:
-            self.cells[name].show(name != self.place_of_death)
+            self.cells[name].show(name == self.place_of_death)
