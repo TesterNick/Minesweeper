@@ -14,13 +14,23 @@ class Cell(tk.Button):
         self.bomb = False
         self.folder = os.path.dirname(__file__)
         self.state = "closed"
-        self.closed_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/closed.png")))
-        self.configure(image=self.closed_image)
-        self.last_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/boom.png")))
-        self.bomb_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/bomb.png")))
-        self.not_bomb_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/wrong.png")))
-        self.marked_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/marked.png")))
-        self.opened_image = None
+        self._closed_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/closed.png")))
+        self.configure(image=self._closed_image)
+        self._last_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/boom.png")))
+        self._bomb_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/bomb.png")))
+        self._not_bomb_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/wrong.png")))
+        self._marked_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/marked.png")))
+        self._opened_image = None
+        self.bind("<Destroy>", self._on_destroy)
+
+    # Image control
+    def _get_opened_image(self):
+        return self._opened_image
+
+    def _set_opened_image(self, opened_image):
+        del self._opened_image
+        self._opened_image = opened_image
+    opened_image = property(_get_opened_image, _set_opened_image)
 
     # Getters
     def is_bomb(self):
@@ -54,11 +64,11 @@ class Cell(tk.Button):
 
     def close(self):
         self.state = "closed"
-        self.configure(image=self.closed_image, state="normal")
+        self.configure(image=self._closed_image, state="normal")
 
     def open(self):
         if not self.is_marked():
-            self.configure(image=self.opened_image, relief="sunken")
+            self.configure(image=self._opened_image, relief="sunken")
             self.unbind("<B1>")
             self.state = "disabled"
             if self.is_bomb():
@@ -72,13 +82,19 @@ class Cell(tk.Button):
             counter = self.field.number_of_bombs
             if self.is_closed():
                 self.state = "marked"
-                self.configure(image=self.marked_image)
+                self.configure(image=self._marked_image)
                 counter.set(counter.get()-1)
             elif self.is_marked():
                 self.close()
                 counter.set(counter.get()+1)
             if self.field.number_of_bombs.get() == 0:
                 self.field.check()
+
+    def show(self, place_of_death):
+        if self.is_bomb() and not self.is_marked() and not place_of_death:
+            self.configure(image=self._bomb_image)
+        elif not self.is_bomb() and self.is_marked():
+            self.configure(image=self._not_bomb_image)
 
     # Other actions
     def automated_opening(self, event=None):
@@ -101,7 +117,7 @@ class Cell(tk.Button):
                 cell.configure(relief="raised")
 
     def blow_up(self):
-        self.configure(image=self.last_image)
+        self.configure(image=self._last_image)
         self.field.place_of_death = self.column + self.row
 
     # Function recursively checks if the cell has no bombs around and opens them
@@ -131,3 +147,12 @@ class Cell(tk.Button):
             button = self.field.cells[n]
             if button.is_closed():
                 button.configure(relief="raised")
+
+    # Lifecycle handlers
+    def _on_destroy(self, *args):
+        del(self._closed_image)
+        del(self._last_image)
+        del(self._bomb_image)
+        del(self._not_bomb_image)
+        del(self._marked_image)
+        del(self._opened_image)

@@ -1,4 +1,3 @@
-import gc
 import tkinter as tk
 from .simple_dialog import SimpleDialog
 from .field import Field
@@ -58,5 +57,4 @@ class Application(tk.Frame):
     def restart(self, event=None):
         for child in self.parent.winfo_children():
             child.destroy()
-        gc.collect()
         self.__init__(self.parent, self.settings)
