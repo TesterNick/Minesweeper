@@ -58,7 +58,6 @@ class SettingsDialog(DialogWindow):
                                            command=self.apply_settings_and_close, width=10)
         self.content.ok_button.grid(row=4, column=4)
         self.position()
-        self.deiconify()
 
     def apply_settings_and_close(self):
         listbox_value = self.content.lang_listbox.curselection()

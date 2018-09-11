@@ -5,12 +5,11 @@ class DialogWindow(tk.Toplevel):
 
     def __init__(self, app):
         self.field = app.field
-        self.pause_the_game()
         super().__init__()
         self.withdraw()
+        self.transient(app)
         self.resizable(0, 0)
         self.title(app.language["title"])
-        self.bind("<FocusOut>", self.require_attention)
         self.content = tk.Frame(self, padx=10, pady=10)
         self.content.grid()
 
@@ -32,19 +31,9 @@ class DialogWindow(tk.Toplevel):
         elif dialog_x > (self.winfo_screenwidth() - dialog_width):
             dialog_x = self.winfo_screenwidth() - dialog_width
         self.geometry("{}x{}+{}+{}".format(dialog_width, dialog_height, dialog_x, dialog_y))
-
-    def pause_the_game(self):
-        for name in self.field.cells:
-            cell = self.field.cells[name]
-            cell.deactivate()
+        self.deiconify()
+        self.grab_set()
+        self.wait_window(self)
 
     def resume(self, event=None):
         self.destroy()
-        for name in self.field.cells:
-            cell = self.field.cells[name]
-            cell.activate()
-
-    def require_attention(self, event=None):
-        self.bell()
-        self.lift()
-        self.focus_force()
