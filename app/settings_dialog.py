@@ -53,9 +53,11 @@ class SettingsDialog(DialogWindow):
         self.content.cancel_button = tk.Button(self.content, text=settings.language["cancel"],
                                                command=self.resume, width=10)
         self.content.cancel_button.grid(row=4, column=1)
+        self.content.cancel_button.focus_force()
         self.content.ok_button = tk.Button(self.content, text=settings.language["ok"],
                                            command=self.apply_settings_and_close, width=10)
         self.content.ok_button.grid(row=4, column=4)
+        self.position()
 
     def apply_settings_and_close(self):
         listbox_value = self.content.lang_listbox.curselection()
@@ -64,6 +66,6 @@ class SettingsDialog(DialogWindow):
 
     def update_no_of_bombs_widget(self, number=None):
         settings = self.app.settings
-        new_maximum = math.floor(settings.temp_rows.get() * settings.temp_columns.get() * 0.75)
+        new_maximum = math.floor(settings.temp_rows.get() * settings.temp_columns.get() * 0.5)
         settings.max_no_of_bombs.set(new_maximum)
         self.content.bombs_scale.configure(to=new_maximum)

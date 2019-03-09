@@ -52,6 +52,8 @@ class Application(tk.Frame):
         SimpleDialog(self, "win")
 
     def exit(self, event=None):
+        for child in self.parent.winfo_children():
+            child.destroy()
         self.parent.quit()
 
     def restart(self, event=None):
