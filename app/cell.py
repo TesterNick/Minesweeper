@@ -20,7 +20,6 @@ class Cell(tk.Button):
         self._not_bomb_image = self.images.wrong
         self._marked_image = self.images.marked
         self._opened_image = None
-        self.bind("<Destroy>", self._on_destroy)
 
     # Image control
     def _get_opened_image(self):
