@@ -150,12 +150,3 @@ class Cell(tk.Button):
             button = self.field.cells[n]
             if button.is_closed():
                 button.configure(relief="raised")
-
-    # Lifecycle handlers
-    def _on_destroy(self, *args):
-        del(self._closed_image)
-        del(self._last_image)
-        del(self._bomb_image)
-        del(self._not_bomb_image)
-        del(self._marked_image)
-        del(self._opened_image)
