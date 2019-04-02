@@ -7,7 +7,7 @@ from .settings_dialog import SettingsDialog
 class Settings(object):
 
     def __init__(self, app):
-        self.version = "2.0.0rc2"
+        self.version = "2.0.0"
         self.app = app
         self.rows = 10
         self.temp_rows = tk.IntVar()
