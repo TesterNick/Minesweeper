@@ -109,6 +109,10 @@ class Cell(tk.Button):
             if amount_of_opened_nearby_bombs == self.nearby_bombs:
                 for n in neighbours:
                     cell = self.field.cells[n]
+                    # When player was wrong and previous cell blew up,
+                    # cells are deleted and following opening is not needed
+                    if not cell:
+                        return
                     if cell.is_closed():
                         cell.open()
         elif self.is_closed():

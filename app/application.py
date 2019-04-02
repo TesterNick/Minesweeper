@@ -63,4 +63,7 @@ class Application(tk.Frame):
         for child in self.parent.winfo_children():
             if child != self:
                 child.destroy()
+        for cell in self.field.cells.keys():
+            self.field.cells[cell] = None
+        self.field = None
         self.create_window()
