@@ -1,7 +1,8 @@
 import tkinter as tk
-from .simple_dialog import SimpleDialog
 from .field import Field
+from .image_keeper import ImageKeeper
 from .settings import Settings
+from .simple_dialog import SimpleDialog
 
 
 class Application(tk.Frame):
@@ -12,6 +13,7 @@ class Application(tk.Frame):
             self.settings = Settings(self)
         else:
             self.settings = settings
+        self.images = ImageKeeper()
         self.language = self.settings.language
         self.parent = parent
         self.parent.resizable(0, 0)
@@ -19,7 +21,7 @@ class Application(tk.Frame):
         self.parent.config(menu=self.create_menu(self))
         self.parent.title(self.language["title"])
         self.grid()
-        self.field = Field(self, self.settings)
+        self.field = Field(self, self.settings, self.images)
 
     # Main menu
     def create_menu(self, master):

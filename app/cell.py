@@ -1,10 +1,9 @@
-import os
 import tkinter as tk
 
 
 class Cell(tk.Button):
 
-    def __init__(self, master, row, column):
+    def __init__(self, master, row, column, images):
         super().__init__(master=master)
         self.field = master
         self.app = master.parent
@@ -12,14 +11,14 @@ class Cell(tk.Button):
         self.column = str(column)
         self.nearby_bombs = None
         self.bomb = False
-        self.folder = os.path.dirname(__file__)
         self.state = "closed"
-        self._closed_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/closed.png")))
+        self.images = images
+        self._closed_image = self.images.closed
         self.configure(image=self._closed_image)
-        self._last_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/boom.png")))
-        self._bomb_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/bomb.png")))
-        self._not_bomb_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/wrong.png")))
-        self._marked_image = tk.PhotoImage(file=(os.path.join(self.folder, "../img/marked.png")))
+        self._last_image = self.images.boom
+        self._bomb_image = self.images.bomb
+        self._not_bomb_image = self.images.wrong
+        self._marked_image = self.images.marked
         self._opened_image = None
         self.bind("<Destroy>", self._on_destroy)
 
@@ -31,6 +30,10 @@ class Cell(tk.Button):
         del self._opened_image
         self._opened_image = opened_image
     opened_image = property(_get_opened_image, _set_opened_image)
+
+    def set_closed_image(self, counter):
+        self.nearby_bombs = counter if counter != 0 else None
+        self.opened_image = self.images.opened["{}".format(counter)]
 
     # Getters
     def is_bomb(self):

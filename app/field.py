@@ -1,4 +1,3 @@
-import os
 import random
 import tkinter as tk
 from .cell import Cell
@@ -6,9 +5,10 @@ from .cell import Cell
 
 class Field(tk.Frame):
 
-    def __init__(self, master, settings):
+    def __init__(self, master, settings, images):
         super().__init__()
         self.parent = master
+        self.img = images
         self.place_of_death = None
         self.cells = {}
         self.columns = settings.available_columns[:settings.columns]
@@ -24,7 +24,7 @@ class Field(tk.Frame):
     def create_field(self):
         for i in range(self.rows):
             for j in self.columns:
-                self.cells[j+str(i)] = Cell(self, i, j)
+                self.cells[j+str(i)] = Cell(self, i, j, self.img)
         counter = 0
         # Placing bombs
         while counter < self.number_of_bombs.get():
@@ -41,11 +41,7 @@ class Field(tk.Frame):
                 for n in neighbours:
                     if self.cells[n].is_bomb():
                         counter += 1
-                if counter == 0:
-                    cell.opened_image = tk.PhotoImage(file=(os.path.join(cell.folder, "../img/empty.png")))
-                else:
-                    cell.nearby_bombs = counter
-                    cell.opened_image = tk.PhotoImage(file=(os.path.join(cell.folder, "../img/{}.png".format(counter))))
+                cell.set_closed_image(counter)
         # Placing cells on the field
         for name in self.cells:
             cell = self.cells[name]
