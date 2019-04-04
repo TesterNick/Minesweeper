@@ -1,4 +1,3 @@
-import math
 import tkinter as tk
 from .dialog_window import DialogWindow
 
