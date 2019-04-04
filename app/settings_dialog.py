@@ -17,7 +17,8 @@ class SettingsDialog(DialogWindow):
         c.width_scale = tk.Scale(c, orient="horizontal", showvalue=False,
                                  variable=settings.tmp_cols,
                                  from_=settings.min_width,
-                                 to=settings.max_width,
+                                 to=settings.max_width, takefocus=1,
+                                 highlightthickness=1,
                                  command=self.update_no_of_bombs_widget)
         c.width_scale.grid(row=0, column=1, columnspan=2)
         c.width_value = tk.Label(c, padx=10, pady=10,
@@ -31,7 +32,8 @@ class SettingsDialog(DialogWindow):
         c.height_scale = tk.Scale(c, orient="horizontal", showvalue=False,
                                   variable=settings.tmp_rows,
                                   from_=settings.min_height,
-                                  to=settings.max_height,
+                                  to=settings.max_height, takefocus=1,
+                                  highlightthickness=1,
                                   command=self.update_no_of_bombs_widget)
         c.height_scale.grid(row=1, column=1, columnspan=2)
         c.height_value = tk.Label(c, padx=10, pady=10,
@@ -46,7 +48,8 @@ class SettingsDialog(DialogWindow):
         c.bombs_scale = tk.Scale(c, orient="horizontal", showvalue=False,
                                  variable=settings.temp_no_of_bombs,
                                  from_=settings.min_no_of_bombs,
-                                 to=settings.max_no_of_bombs.get())
+                                 to=settings.max_no_of_bombs.get(),
+                                 takefocus=1, highlightthickness=1)
         c.bombs_scale.grid(row=2, column=1, columnspan=2)
         c.bombs_value = tk.Label(c, padx=10, pady=10,
                                  textvariable=settings.temp_no_of_bombs)
