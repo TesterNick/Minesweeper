@@ -26,16 +26,18 @@ class Application(tk.Frame):
 
     # Main menu
     def create_menu(self, master):
-        m = tk.Menu(master)
-        game = tk.Menu(m, tearoff=0)
-        m.add_cascade(label=self.language["game"], menu=game)
-        game.add_command(label=self.language["new"], command=self.ensure_restart)
-        game.add_command(label=self.language["settings"], command=self.settings.change_settings_dialog)
-        game.add_command(label=self.language["exit"], command=self.ensure_exit)
-        about = tk.Menu(m, tearoff=0)
-        m.add_cascade(label=self.language["about"], menu=about)
-        about.add_command(label=self.language["version"], command=self.show_info)
-        return m
+        lang = self.language
+        menu = tk.Menu(master)
+        game = tk.Menu(menu, tearoff=0)
+        menu.add_cascade(label=lang["game"], menu=game)
+        game.add_command(label=lang["new"], command=self.ensure_restart)
+        game.add_command(label=lang["settings"],
+                         command=self.settings.change_settings_dialog)
+        game.add_command(label=lang["exit"], command=self.ensure_exit)
+        about = tk.Menu(menu, tearoff=0)
+        menu.add_cascade(label=lang["about"], menu=about)
+        about.add_command(label=lang["version"], command=self.show_info)
+        return menu
 
     def ensure_restart(self):
         SimpleDialog(self, "restart")

@@ -126,7 +126,8 @@ class Cell(tk.Button):
         self.configure(image=self._last_image)
         self.field.place_of_death = self.column + self.row
 
-    # Function recursively checks if the cell has no bombs around and opens them
+    # Function recursively checks if the cell has no bombs around and
+    # opens them
     def open_zeros(self):
         neighbours = self.field.get_neighbours(self.column + self.row)
         for n in neighbours:

@@ -13,9 +13,10 @@ class DialogWindow(tk.Toplevel):
         self.content = tk.Frame(self, padx=10, pady=10)
         self.content.grid()
 
-    # All the popup windows appears above main field. By default the center of
-    # the dialog window aligns with the center of the game field, but if the
-    # dialog won't fit the screen it is shifted.
+    # All the popup windows appears above main field.
+    # By default the center of the dialog window
+    # aligns with the center of the game field,
+    # but if the dialog won't fit the screen it is shifted.
     def position(self):
         self.update_idletasks()
         field_x = self.field.winfo_rootx()
@@ -30,7 +31,8 @@ class DialogWindow(tk.Toplevel):
             dialog_x = 0
         elif dialog_x > (self.winfo_screenwidth() - dialog_width):
             dialog_x = self.winfo_screenwidth() - dialog_width
-        self.geometry("{}x{}+{}+{}".format(dialog_width, dialog_height, dialog_x, dialog_y))
+        self.geometry("{}x{}+{}+{}".format(dialog_width, dialog_height,
+                                           dialog_x, dialog_y))
         self.deiconify()
         self.grab_set()
         self.wait_window(self)

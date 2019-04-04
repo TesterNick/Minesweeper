@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 """
-This is my version of popular game Minesweeper. It has GUI and requires Tcl/Tk installed on your system
-as well as tkinter module in your Python library (included by default in standard package for Windows).
+This is my version of popular game Minesweeper. It has GUI and requires
+Tcl/Tk installed on your system as well as tkinter module in your
+Python library (included by default in standard package for Windows).
 
-It is the second version of the program because it has GUI while the first one was completely textual.
+It is the second version of the program because it has GUI while
+the first one was completely textual.
 
 Now you can play the game on your job even if sysadmins deleted
 all the games before you got your computer :)

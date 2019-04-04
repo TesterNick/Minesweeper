@@ -15,7 +15,8 @@ class Field(tk.Frame):
         self.rows = settings.rows
         self.number_of_bombs = tk.IntVar()
         self.number_of_bombs.set(settings.number_of_bombs)
-        self.bomb_counter = tk.Label(self, textvariable=self.number_of_bombs, font="courier 15 bold", fg="red")
+        self.bomb_counter = tk.Label(self, textvariable=self.number_of_bombs,
+                                     font="courier 15 bold", fg="red")
         self.bomb_counter.grid(column=0, columnspan=len(self.columns), row=0)
         self.grid()
         self.create_field()
@@ -47,9 +48,11 @@ class Field(tk.Frame):
             cell = self.cells[name]
             cell.configure(command=cell.open, takefocus=0, width=24, height=24)
             cell.activate()
-            cell.grid(column=self.columns.index(name[0]), row=(int(name[1:]) + 1))
+            cell.grid(column=self.columns.index(name[0]),
+                      row=(int(name[1:]) + 1))
 
-    # Function return list of cell's names that are neighbours of the current cell
+    # Function return list of cell's names that are neighbours
+    # of the current cell
     def get_neighbours(self, coordinates):
         neighbours = []
         column = self.columns.index(coordinates[0])
