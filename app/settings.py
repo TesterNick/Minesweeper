@@ -79,7 +79,7 @@ class Settings(object):
         self.max_width = 30
         self.min_no_of_bombs = 3
         self.max_no_of_bombs = tk.IntVar()
-        max_num = math.floor(self.tmp_rows.get() * self.tmp_cols.get() * 0.5)
+        max_num = self.get_temp_max_no_of_bombs()
         self.max_no_of_bombs.set(max_num)
 
     def apply_temp_settings(self, listbox_value):
@@ -104,3 +104,6 @@ class Settings(object):
         return (self.available_columns[:self.columns],
                 self.rows,
                 self.number_of_bombs)
+
+    def get_temp_max_no_of_bombs(self):
+        return math.floor(self.tmp_rows.get() * self.tmp_cols.get() * 0.5)

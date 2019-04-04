@@ -77,7 +77,7 @@ class SettingsDialog(DialogWindow):
         self.app.restart()
 
     def update_no_of_bombs_widget(self, number=None):
-        s = self.app.settings
-        new_maximum = math.floor(s.tmp_rows.get() * s.tmp_cols.get() * 0.5)
-        s.max_no_of_bombs.set(new_maximum)
+        settings = self.app.settings
+        new_maximum = settings.get_temp_max_no_of_bombs()
+        settings.max_no_of_bombs.set(new_maximum)
         self.content.bombs_scale.configure(to=new_maximum)
