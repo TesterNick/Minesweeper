@@ -7,7 +7,7 @@ from .settings_dialog import SettingsDialog
 class Settings(object):
 
     def __init__(self, app):
-        self.version = "2.0.0rc2"
+        self.version = "2.0.0"
         self.app = app
         self.rows = 10
         self.temp_rows = tk.IntVar()
@@ -77,7 +77,7 @@ class Settings(object):
         self.max_width = 30
         self.min_no_of_bombs = 3
         self.max_no_of_bombs = tk.IntVar()
-        self.max_no_of_bombs.set(math.floor(self.temp_rows.get() * self.temp_columns.get() * 0.75))
+        self.max_no_of_bombs.set(math.floor(self.temp_rows.get() * self.temp_columns.get() * 0.5))
 
     def apply_temp_settings(self, listbox_value):
         self.rows = self.temp_rows.get()

@@ -1,25 +1,28 @@
 import tkinter as tk
-from .simple_dialog import SimpleDialog
 from .field import Field
+from .image_keeper import ImageKeeper
 from .settings import Settings
+from .simple_dialog import SimpleDialog
 
 
 class Application(tk.Frame):
 
-    def __init__(self, parent, settings=None):
+    def __init__(self, parent):
         super().__init__()
-        if settings is None:
-            self.settings = Settings(self)
-        else:
-            self.settings = settings
-        self.language = self.settings.language
+        self.settings = Settings(self)
+        self.images = ImageKeeper()
+        self.language = None
         self.parent = parent
         self.parent.resizable(0, 0)
         self.parent.protocol("WM_DELETE_WINDOW", self.ensure_exit)
+        self.field = None
+        self.create_window()
+
+    def create_window(self):
+        self.language = self.settings.language
         self.parent.config(menu=self.create_menu(self))
         self.parent.title(self.language["title"])
-        self.grid()
-        self.field = Field(self, self.settings)
+        self.field = Field(self, self.settings, self.images)
 
     # Main menu
     def create_menu(self, master):
@@ -51,12 +54,16 @@ class Application(tk.Frame):
         self.field.show_the_bombs()
         SimpleDialog(self, "win")
 
-    def exit(self, event=None):
+    def exit(self):
         for child in self.parent.winfo_children():
             child.destroy()
         self.parent.quit()
 
-    def restart(self, event=None):
+    def restart(self):
         for child in self.parent.winfo_children():
-            child.destroy()
-        self.__init__(self.parent, self.settings)
+            if child != self:
+                child.destroy()
+        for cell in self.field.cells.keys():
+            self.field.cells[cell] = None
+        self.field = None
+        self.create_window()
