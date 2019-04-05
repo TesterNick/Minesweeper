@@ -1,23 +1,25 @@
 import locale
 import math
 import tkinter as tk
+
 from .settings_dialog import SettingsDialog
 
 
 class Settings(object):
 
     def __init__(self, app):
-        self.version = "2.0.0"
+        self.version = "2.0.1"
         self.app = app
         self.rows = 10
-        self.temp_rows = tk.IntVar()
-        self.temp_rows.set(self.rows)
+        self.tmp_rows = tk.IntVar()
+        self.tmp_rows.set(self.rows)
         self.columns = 10
-        self.temp_columns = tk.IntVar()
-        self.temp_columns.set(self.columns)
+        self.tmp_cols = tk.IntVar()
+        self.tmp_cols.set(self.columns)
         self.number_of_bombs = 15
         self.temp_no_of_bombs = tk.IntVar()
-        # I know, not all of them are used, but the whole alphabet is more beautiful
+        # I know, not all of them are used,
+        # but the whole alphabet is more beautiful
         self.available_columns = "abcdefghijklmnopqrstuvwxyz"
         self.russian = {
             "about": "О программе",
@@ -77,11 +79,12 @@ class Settings(object):
         self.max_width = 30
         self.min_no_of_bombs = 3
         self.max_no_of_bombs = tk.IntVar()
-        self.max_no_of_bombs.set(math.floor(self.temp_rows.get() * self.temp_columns.get() * 0.5))
+        max_num = self.get_temp_max_no_of_bombs()
+        self.max_no_of_bombs.set(max_num)
 
     def apply_temp_settings(self, listbox_value):
-        self.rows = self.temp_rows.get()
-        self.columns = self.temp_columns.get()
+        self.rows = self.tmp_rows.get()
+        self.columns = self.tmp_cols.get()
         self.number_of_bombs = self.temp_no_of_bombs.get()
         try:
             self.language = self.langs[self.lang_list[listbox_value[0]]]
@@ -98,4 +101,9 @@ class Settings(object):
             return self.english
 
     def get_field_settings(self):
-        return self.available_columns[:self.columns], self.rows, self.number_of_bombs
+        return (self.available_columns[:self.columns],
+                self.rows,
+                self.number_of_bombs)
+
+    def get_temp_max_no_of_bombs(self):
+        return math.floor(self.tmp_rows.get() * self.tmp_cols.get() * 0.5)
